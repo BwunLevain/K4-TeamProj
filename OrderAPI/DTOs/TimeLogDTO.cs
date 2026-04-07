@@ -4,10 +4,11 @@
         int Id,
         DateTime StartTime,
         DateTime? EndTime,
-        int CategoryId    
+        int CategoryId
     );
 
     public record CreateTimeLogRequest(
+        [Required]
         DateTime StartTime,
         DateTime? EndTime,
         int CategoryId
