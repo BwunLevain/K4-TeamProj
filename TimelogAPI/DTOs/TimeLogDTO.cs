@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace OrderAPI.DTOs
+namespace TimelogAPI.DTOs
 {
     public record TimeLogResponse(
         int Id,

@@ -1,4 +1,4 @@
-﻿namespace OrderAPI.Features.Category
+﻿namespace TimelogAPI.Features.Category
 {
     public class Category
     {
