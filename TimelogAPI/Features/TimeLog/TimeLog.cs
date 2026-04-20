@@ -1,4 +1,4 @@
-﻿namespace OrderAPI.Features.TimeLog
+﻿namespace TimelogAPI.Features.TimeLog
 {
     public class TimeLog
     {

@@ -1,5 +1,5 @@
 <Solution>
   <Project Path="K4-TeamProj.Tests/K4-TeamProj.Tests.csproj" Id="f82854f4-2376-42d2-a7f4-6b1ba616eb7f" />
-  <Project Path="OrderAPI/OrderAPI.csproj" />
-  <Project Path="UserAPI/UserAPI.csproj" />
+  <Project Path="ProxyAPI\ProxyAPI.csproj" />
+  <Project Path="TimelogAPI\TimelogAPI.csproj" />
 </Solution>
