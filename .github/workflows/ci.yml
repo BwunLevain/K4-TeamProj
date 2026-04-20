@@ -20,10 +20,10 @@ jobs:
           dotnet-version: '9.0.x'
       
       - name: Restore dependencies
-        run: dotnet restore K4-TeamProj.sln
+        run: dotnet restore K4-TeamProj.slnx
       
       - name: Build project
-        run: dotnet build K4-TeamProj.sln --configuration Release --no-restore
+        run: dotnet build K4-TeamProj.slnx --configuration Release --no-restore
       
       - name: Run tests
-        run: dotnet test K4-TeamProj.sln --configuration Release --no-build --verbosity normal
+        run: dotnet test K4-TeamProj.slnx --configuration Release --no-build --verbosity normal
