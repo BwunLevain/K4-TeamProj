@@ -1,4 +1,6 @@
-﻿namespace OrderAPI.Features.TimeLog
+﻿using OrderAPI.Features.Categories;
+
+namespace OrderAPI.Features.TimeLogs
 {
     public class TimeLog
     {
@@ -10,6 +12,6 @@
 
         public int CategoryId { get; set; }
 
-        public virtual Category.Category? Category { get; set; }
+        public Category Category { get; set; }
     }
 }

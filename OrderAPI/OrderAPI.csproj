@@ -12,8 +12,8 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
-    <Folder Include="Features\Category\Dtos\" />
-    <Folder Include="Features\TimeLog\Dtos\" />
+    <Folder Include="Features\Categories\Dtos\" />
+    <Folder Include="Features\TimeLogs\Dtos\" />
   </ItemGroup>
 
 </Project>
