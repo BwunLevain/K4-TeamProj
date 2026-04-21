@@ -1,11 +1,13 @@
-using TimelogAPI.Features.TimeLog.Dtos;
+using TimelogAPI.Features.Common;
+using TimelogAPI.Features.TimeLogs.Dtos;
 
 namespace TimelogAPI.Services;
 
 public interface ITimelogService
 {
-    // get all timelogs, user can filter with start date and/or category both are optional 
-    Task<PagedResponseDto<TimeLogResponse>> GetAllTimeLogsAsync(int page, int pageSize, DateTime? startDate, string? category);
-    
-    // add the other tasks below (create,delete, update)
+    Task<PagedResponseDto<TimeLogResponse>> GetPagedTimeLogsAsync(int page, int pageSize, DateTime? startDate, string? category);
+    Task<TimeLogResponse> GetTimeLogByIdAsync(int id);
+    Task<TimeLogResponse> CreateTimeLogAsync(CreateTimeLogRequest request);
+    Task<bool> UpdateTimeLogAsync(UpdateTimeLogRequest request);
+    Task<bool> DeleteTimeLogAsync(int id);
 }

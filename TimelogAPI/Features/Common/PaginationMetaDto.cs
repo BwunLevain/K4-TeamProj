@@ -1,4 +1,4 @@
-namespace TimelogAPI.Features.TimeLog.Dtos;
+namespace TimelogAPI.Features.Common;
 
 public record PaginationMetaDto(
     int Page,

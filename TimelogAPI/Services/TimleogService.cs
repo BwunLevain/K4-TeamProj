@@ -1,14 +1,98 @@
-using TimelogAPI.Features.TimeLog.Dtos;
+using TimelogAPI.Features.Common;
+using TimelogAPI.Features.TimeLogs;
+using TimelogAPI.Features.TimeLogs.Dtos;
+using TimelogAPI.Extentions.Mappers;
+using TimelogAPI.Extentions;
 
-namespace TimelogAPI.Services;
-
-// implement all tasks from the ITimelogService
-public class TimleogService : ITimelogService
+namespace TimelogAPI.Services
 {
-    public async Task<PagedResponseDto<TimeLogResponse>> GetAllTimeLogsAsync(int page, int pageSize,
-        DateTime? startDate, string? category)
+    public class TimleogService : ITimelogService
     {
-        // remove this and implement the metod 
-        throw new NotImplementedException();
+        private readonly ILogger<TimleogService> _logger;
+
+        // In-memory data store for TimeLogs
+        private static readonly List<TimeLog> _TimeLogs = Enumerable.Range(1, 20).Select(i =>
+        {
+            var randomCategoryId = new Random().Next(1, 4);
+            var category = CategoryService._categories.FirstOrDefault(c => c.Id == randomCategoryId);
+
+            return new TimeLog
+            {
+                Id = i,
+                StartTime = DateTime.Now.AddHours(-i),
+                EndTime = DateTime.Now.AddHours(-i + 1),
+                CategoryId = randomCategoryId,
+                Category = category
+            };
+        }).ToList();
+
+        private static int _nextId = 21;
+
+        public TimleogService(ILogger<TimleogService> logger)
+        {
+            _logger = logger;
+        }
+
+
+    public async Task<PagedResponseDto<TimeLogResponse>> GetPagedTimeLogsAsync(int page, int pageSize, DateTime? startDate, string? category)
+        {
+            var query = _TimeLogs.AsQueryable();
+
+            // Filtering
+            if (startDate.HasValue)
+            {
+                query = query.Where(t => t.StartTime.Date >= startDate.Value.Date);
+            }
+
+            if (!string.IsNullOrWhiteSpace(category))
+            {
+                query = query.Where(t => t.Category != null &&
+                    t.Category.Name.Contains(category, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Sorting
+            query = query.OrderByDescending(t => t.StartTime);
+
+            // Paging
+            return query.ToPagedResponse(page, pageSize, t => t.ToResponse());
+        }
+
+    public async Task<TimeLogResponse> GetTimeLogByIdAsync(int id)
+        {
+            var timeLog = _TimeLogs.FirstOrDefault(t => t.Id == id);
+            return timeLog?.ToResponse()!;
+        }
+
+        public async Task<TimeLogResponse> CreateTimeLogAsync(CreateTimeLogRequest request)
+        {
+            var entity = request.ToEntity();
+            entity.Id = _nextId++;
+
+            entity.Category = CategoryService._categories.FirstOrDefault(c => c.Id == entity.CategoryId);
+
+            _TimeLogs.Add(entity);
+            return entity.ToResponse();
+        }
+
+        public async Task<bool> UpdateTimeLogAsync(UpdateTimeLogRequest request)
+        {
+            var existing = _TimeLogs.FirstOrDefault(t => t.Id == request.CategoryId);
+            if (existing == null) return false;
+
+            request.UpdateEntity(existing);
+
+            existing.Category = CategoryService._categories.FirstOrDefault(c => c.Id == existing.CategoryId);
+
+            return true;
+        }
+
+        public async Task<bool> DeleteTimeLogAsync(int id)
+        {
+            var existing = _TimeLogs.FirstOrDefault(t => t.Id == id);
+            if (existing == null) return false;
+
+            _TimeLogs.Remove(existing);
+            return true;
+        }
     }
 }

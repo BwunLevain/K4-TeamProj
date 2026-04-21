@@ -1,4 +1,4 @@
-﻿namespace TimelogAPI.Features.TimeLog.Dtos
+﻿namespace TimelogAPI.Features.TimeLogs.Dtos
 {
     public record UpdateTimeLogRequest(
         DateTime? StartTime,

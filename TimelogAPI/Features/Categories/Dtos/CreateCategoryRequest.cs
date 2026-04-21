@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using TimelogAPI.Features.TimeLog.Dtos;
+using TimelogAPI.Features.TimeLogs.Dtos;
 
-namespace TimelogAPI.Features.Category.Dtos
+namespace TimelogAPI.Features.Categories.Dtos
 {
     public record CreateCategoryRequest(
         [Required,StringLength(50)]

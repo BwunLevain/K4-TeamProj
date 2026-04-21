@@ -1,6 +1,6 @@
-﻿using TimelogAPI.Features.TimeLog.Dtos;
+﻿using TimelogAPI.Features.TimeLogs.Dtos;
 
-namespace TimelogAPI.Features.Category.Dtos
+namespace TimelogAPI.Features.Categories.Dtos
 {
     public record CategoryResponse(
         int Id,
