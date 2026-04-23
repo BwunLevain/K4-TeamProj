@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.RateLimiting;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,7 +7,22 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+    options.AddSlidingWindowLimiter("sliding_window", config =>
+    {
+        config.Window = TimeSpan.FromMinutes(1);
+        config.SegmentsPerWindow = 6;
+        config.PermitLimit = 60;
+    });
+});
+
 builder.Services.AddOpenApi();
+
+builder.Services.AddHybridCache();
 
 var app = builder.Build();
 
