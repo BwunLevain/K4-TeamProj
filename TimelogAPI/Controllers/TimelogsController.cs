@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TimelogAPI.Features.Common;
 using TimelogAPI.Features.TimeLogs.Dtos;
 using TimelogAPI.Services;
 
@@ -29,27 +30,29 @@ namespace TimelogAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetTimelogs([FromQuery] int page = 1,
-        [FromQuery] int pageSize = 20,
-        [FromQuery] string? category = null,
-        [FromQuery] string? sortBy = null)
+        public async Task<IActionResult> GetTimelogs(
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 20,
+            [FromQuery] string? category = null,
+            [FromQuery] DateTime? startDate = null)
         {
-            var result = await _timelogService.GetTimelogsAsync(category, sortBy, page, pageSize);
+            var result = await _timelogService.GetPagedTimelogsAsync(page, pageSize, startDate, category);
             return Ok(result);
         }
 
         [HttpPut("{id}")]
 
-        public async Task<IActionResult> UpdateTimelog(int id,[FromBody] UpdateTimeLogRequest request)
+        public async Task<IActionResult> UpdateTimelog(int id, [FromBody] UpdateTimeLogRequest request)
         {
-            var result = await _timelogService.UpdateTimelogAsync(id, request);
+            await _timelogService.UpdateTimelogAsync(id, request);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTimelog(int id)
         {
-            var result = await _timelogService.DeleteTimelogAsync(id);
+            await _timelogService.DeleteTimelogAsync(id);
             return NoContent();
         }
     }
+}

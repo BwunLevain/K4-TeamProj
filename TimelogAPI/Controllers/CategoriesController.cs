@@ -25,7 +25,7 @@ namespace TimelogAPI.Controllers
         public async Task<IActionResult> GetCategoryById(int id)
         {
             var result = await _categoryService.GetCategoryByIdAsync(id);
-            return Ok(result);              
+            return Ok(result);
         }
 
         [HttpGet]
@@ -40,14 +40,15 @@ namespace TimelogAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCategory(int id, [FromBody] UpdateCategoryRequest request)
         {
-            var result = await _categoryService.UpdateCategoryAsync(id, request);
+            await _categoryService.UpdateCategoryAsync(id, request);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            var result = await _categoryService.DeleteCategoryAsync(id);
+            await _categoryService.DeleteCategoryAsync(id);
             return NoContent();
         }
     }
+}
