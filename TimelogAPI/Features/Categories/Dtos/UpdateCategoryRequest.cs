@@ -1,4 +1,4 @@
-﻿namespace TimelogAPI.Features.Category.Dtos
+﻿namespace TimelogAPI.Features.Categories.Dtos
 {
     public record UpdateCategoryRequest(
         string Name

@@ -1,4 +1,6 @@
-﻿namespace TimelogAPI.Features.TimeLog
+﻿using TimelogAPI.Features.Categories;
+
+namespace TimelogAPI.Features.TimeLogs
 {
     public class TimeLog
     {
@@ -10,6 +12,6 @@
 
         public int CategoryId { get; set; }
 
-        public virtual Category.Category? Category { get; set; }
+        public Category? Category { get; set; }
     }
 }
