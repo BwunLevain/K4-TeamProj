@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.RateLimiting;
 using Scalar.AspNetCore;
+using TimelogAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,7 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
