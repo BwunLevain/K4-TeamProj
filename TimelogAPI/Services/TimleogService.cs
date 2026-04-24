@@ -10,8 +10,8 @@ namespace TimelogAPI.Services
     {
         private readonly ILogger<TimleogService> _logger;
 
-        // In-memory data store for TimeLogs
-        private static readonly List<TimeLog> _TimeLogs = Enumerable.Range(1, 20).Select(i =>
+        // In-memory data store for Timelogs
+        private static readonly List<TimeLog> _timelogs = Enumerable.Range(1, 20).Select(i =>
         {
             var randomCategoryId = new Random().Next(1, 4);
             var category = CategoryService._categories.FirstOrDefault(c => c.Id == randomCategoryId);
@@ -34,9 +34,9 @@ namespace TimelogAPI.Services
         }
 
 
-    public async Task<PagedResponseDto<TimeLogResponse>> GetPagedTimeLogsAsync(int page, int pageSize, DateTime? startDate, string? category)
+    public async Task<PagedResponseDto<TimeLogResponse>> GetPagedTimelogsAsync(int page, int pageSize, DateTime? startDate, string? category)
         {
-            var query = _TimeLogs.AsQueryable();
+            var query = _timelogs.AsQueryable();
 
             // Filtering
             if (startDate.HasValue)
@@ -57,26 +57,26 @@ namespace TimelogAPI.Services
             return query.ToPagedResponse(page, pageSize, t => t.ToResponse());
         }
 
-    public async Task<TimeLogResponse> GetTimeLogByIdAsync(int id)
+    public async Task<TimeLogResponse> GetTimelogByIdAsync(int id)
         {
-            var timeLog = _TimeLogs.FirstOrDefault(t => t.Id == id);
+            var timeLog = _timelogs.FirstOrDefault(t => t.Id == id);
             return timeLog?.ToResponse()!;
         }
 
-        public async Task<TimeLogResponse> CreateTimeLogAsync(CreateTimeLogRequest request)
+        public async Task<TimeLogResponse> CreateTimelogAsync(CreateTimeLogRequest request)
         {
             var entity = request.ToEntity();
             entity.Id = _nextId++;
 
             entity.Category = CategoryService._categories.FirstOrDefault(c => c.Id == entity.CategoryId);
 
-            _TimeLogs.Add(entity);
+            _timelogs.Add(entity);
             return entity.ToResponse();
         }
 
-        public async Task<bool> UpdateTimeLogAsync(UpdateTimeLogRequest request)
+        public async Task<bool> UpdateTimelogAsync(int id, UpdateTimeLogRequest request)
         {
-            var existing = _TimeLogs.FirstOrDefault(t => t.Id == request.CategoryId);
+            var existing = _timelogs.FirstOrDefault(t => t.Id == id);
             if (existing == null) return false;
 
             request.UpdateEntity(existing);
@@ -86,12 +86,12 @@ namespace TimelogAPI.Services
             return true;
         }
 
-        public async Task<bool> DeleteTimeLogAsync(int id)
+        public async Task<bool> DeleteTimelogAsync(int id)
         {
-            var existing = _TimeLogs.FirstOrDefault(t => t.Id == id);
+            var existing = _timelogs.FirstOrDefault(t => t.Id == id);
             if (existing == null) return false;
 
-            _TimeLogs.Remove(existing);
+            _timelogs.Remove(existing);
             return true;
         }
     }
