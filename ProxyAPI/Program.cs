@@ -4,6 +4,8 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var apiKey = builder.Configuration["ApiSettings:TimeLogApiKey"];
+
 // Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -12,6 +14,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddHttpClient<TimeLogClient>(client =>
 {
     client.BaseAddress = new Uri("https://localhost:5001"); // behöver ändras
+
+    client.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
 });
 
 builder.Services.AddCustomCors();
