@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TimelogAPI.Features.Common;
 using TimelogAPI.Features.TimeLogs.Dtos;
 using TimelogAPI.Services;
@@ -15,6 +16,7 @@ namespace TimelogAPI.Controllers
             _timelogService = timelogService;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateTimelog([FromBody] CreateTimeLogRequest request)
         {
@@ -22,6 +24,7 @@ namespace TimelogAPI.Controllers
             return CreatedAtAction(nameof(GetTimelogById), new { id = result.Id }, result);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTimelogById(int id)
         {
@@ -29,6 +32,7 @@ namespace TimelogAPI.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetTimelogs(
             [FromQuery] int page = 1,
@@ -40,14 +44,15 @@ namespace TimelogAPI.Controllers
             return Ok(result);
         }
 
+        [Authorize]
         [HttpPut("{id}")]
-
         public async Task<IActionResult> UpdateTimelog(int id, [FromBody] UpdateTimeLogRequest request)
         {
             await _timelogService.UpdateTimelogAsync(id, request);
             return NoContent();
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTimelog(int id)
         {
