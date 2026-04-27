@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using TimelogAPI.Services;
+using TimelogAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
