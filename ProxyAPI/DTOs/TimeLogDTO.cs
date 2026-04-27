@@ -1,13 +1,11 @@
-﻿namespace ProxyAPI.DTOs
-{
-    public class TimeLogDto
-    {
-        public int Id { get; set; }
+﻿namespace ProxyAPI.DTOs;
 
-        public DateTime StartTime { get; set; }
-
-        public DateTime? EndTime { get; set; }
-
-        public int CategoryId { get; set; }
-    }
-}
+/// <summary>
+/// En lättviktig databärare för tidrapportsinformation.
+/// </summary>
+public record TimeLogDto(
+    int Id,
+    DateTime StartTime,
+    DateTime? EndTime,
+    int CategoryId
+);

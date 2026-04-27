@@ -10,7 +10,6 @@ namespace TimelogAPI.Services
     {
         private readonly ILogger<CategoryService> _logger;
 
-        // In-memory repository for demo
         public static readonly List<Category> _categories = Enumerable.Range(1, 3).Select(i => new Category
         {
             Id = i,

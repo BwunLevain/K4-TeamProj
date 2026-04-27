@@ -6,9 +6,9 @@ using TimelogAPI.Extentions;
 
 namespace TimelogAPI.Services
 {
-    public class TimleogService : ITimelogService
+    public class TimelogService : ITimelogService
     {
-        private readonly ILogger<TimleogService> _logger;
+        private readonly ILogger<TimelogService> _logger;
 
         // In-memory data store for Timelogs
         private static readonly List<TimeLog> _timelogs = Enumerable.Range(1, 20).Select(i =>
@@ -28,7 +28,7 @@ namespace TimelogAPI.Services
 
         private static int _nextId = 21;
 
-        public TimleogService(ILogger<TimleogService> logger)
+        public TimelogService(ILogger<TimelogService> logger)
         {
             _logger = logger;
         }
