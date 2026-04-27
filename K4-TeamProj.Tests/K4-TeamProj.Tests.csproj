@@ -21,7 +21,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\TimelogAPI\TimelogAPI.csproj" />
 		<ProjectReference Include="..\ProxyAPI\ProxyAPI.csproj" />
 	</ItemGroup>
 

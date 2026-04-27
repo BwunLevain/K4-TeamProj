@@ -15,7 +15,10 @@ builder.Services.AddHttpClient<TimeLogClient>(client =>
 {
     client.BaseAddress = new Uri("https://localhost:5001"); // behöver ändras
 
-    client.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
+    if (!string.IsNullOrWhiteSpace(apiKey))
+    {
+        client.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
+    }
 });
 
 builder.Services.AddCustomCors();
