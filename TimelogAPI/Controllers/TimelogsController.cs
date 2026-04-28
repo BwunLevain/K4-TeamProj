@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TimelogAPI.Features.Common;
 using TimelogAPI.Features.TimeLogs.Dtos;
@@ -9,7 +10,8 @@ namespace TimelogAPI.Controllers
     /// <summary>
     /// Hanterar tidrapporter och loggning av arbetstid.
     /// </summary>
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class TimelogsController : ControllerBase
     {

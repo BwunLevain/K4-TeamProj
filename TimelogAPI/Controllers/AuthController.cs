@@ -1,15 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity.Data;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using Asp.Versioning;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text;
 using TimelogAPI.Features.Auth;
 
 /// <summary>
 /// Hanterar autentisering och utfärdande av säkerhetstoken (JWT).
 /// </summary>
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
-[Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
     private readonly IConfiguration _config;
