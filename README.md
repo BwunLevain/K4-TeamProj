@@ -62,7 +62,7 @@ TimelogAPI communicates with ProxyAPI via `IHttpClientFactory` to request AI-gen
 **Requirements:**
 - .NET 9 SDK
 - Visual Studio 2022
-- Ollama running locally with `gemma3:4b` model
+- Ollama running on cloud using OllamaSharp using the gemma3:4b model
 
 **Steps:**
 
