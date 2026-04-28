@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TimelogAPI.Features.AiComments;
 using TimelogAPI.Services;
@@ -8,7 +9,8 @@ namespace TimelogAPI.Controllers
     /// <summary>
     /// Hanterar AI-genererat innehåll och feedback baserat på användarens data.
     /// </summary>
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class SavedContentController : ControllerBase
     {

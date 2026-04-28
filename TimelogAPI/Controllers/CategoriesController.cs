@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TimelogAPI.Features.Categories.Dtos;
 using TimelogAPI.Services;
@@ -8,7 +9,8 @@ namespace TimelogAPI.Controllers
     /// <summary>
     /// Hanterar kategorier för tidrapportering.
     /// </summary>
-    [Route("api/[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class CategoriesController : ControllerBase
     {

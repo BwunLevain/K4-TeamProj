@@ -1,14 +1,19 @@
-using Microsoft.AspNetCore.RateLimiting;
-using Scalar.AspNetCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using TimelogAPI.Services;
+using Asp.Versioning;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.IdentityModel.Tokens;
+using Scalar.AspNetCore;
+using TimelogAPI.Filters;
 using TimelogAPI.Middleware;
+using TimelogAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ValidateModelFilter>();
+});
 
 builder.Services.AddAuthentication(options =>
 {
@@ -32,6 +37,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddScoped<IAiMessageService, AiMessageService>();
 builder.Services.AddScoped<ITimelogService, TimelogService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 builder.Services.AddRateLimiter(options =>
 {
@@ -84,6 +90,21 @@ builder.Services.AddOpenApi(options =>
 });
 
 builder.Services.AddHybridCache();
+
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+    options.ApiVersionReader = new UrlSegmentApiVersionReader();
+})
+
+.AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+});
+
 
 var app = builder.Build();
 
