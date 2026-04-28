@@ -135,4 +135,7 @@ app.MapControllers();
 
 app.Run();
 
-public partial class Program { }
+namespace TimelogAPI
+{
+    public partial class Program { }
+}

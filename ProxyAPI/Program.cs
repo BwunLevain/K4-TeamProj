@@ -51,4 +51,7 @@ app.MapControllers();
 
 app.Run();
 
-public partial class  Program { } // Must be at the bottom of the file to be able to access the Program class from the test project.
+namespace ProxyAPI
+{
+    public partial class Program { }
+}
