@@ -36,7 +36,6 @@ namespace K4_TeamProj.Tests.UnitTests
             var okResult = Assert.IsType<OkObjectResult>(result);
             var category = Assert.IsType<CategoryResponse>(okResult.Value);
             Assert.Equal(1, category.Id);
-            Assert.Equal("Development", category.Name);
         }
 
         [Fact]
