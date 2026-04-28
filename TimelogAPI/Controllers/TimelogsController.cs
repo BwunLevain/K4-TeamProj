@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TimelogAPI.Features.Common;
 using TimelogAPI.Features.TimeLogs.Dtos;
 using TimelogAPI.Services;
@@ -24,6 +25,7 @@ namespace TimelogAPI.Controllers
         /// <param name="request">Information om tidrapporten.</param>
         /// <returns>Den skapade tidrapporten.</returns>
         /// <response code="201">Tidrapporten har skapats.</response>
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateTimelog([FromBody] CreateTimeLogRequest request)
         {
@@ -36,6 +38,7 @@ namespace TimelogAPI.Controllers
         /// </summary>
         /// <param name="id">Tidrapportens unika ID.</param>
         /// <returns>En tidrapport.</returns>
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTimelogById(int id)
         {
@@ -51,6 +54,7 @@ namespace TimelogAPI.Controllers
         /// <param name="category">Filtrera på en specifik kategori.</param>
         /// <param name="startDate">Hämta loggar från och med detta datum.</param>
         /// <returns>En lista med tidrapporter.</returns>
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetTimelogs(
             [FromQuery] int page = 1,
@@ -68,6 +72,7 @@ namespace TimelogAPI.Controllers
         /// <param name="id">ID för tidrapporten.</param>
         /// <param name="request">Ny information för tidrapporten.</param>
         /// <returns>NoContent om uppdateringen lyckades.</returns>
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateTimelog(int id, [FromBody] UpdateTimeLogRequest request)
         {
@@ -80,6 +85,7 @@ namespace TimelogAPI.Controllers
         /// </summary>
         /// <param name="id">ID för tidrapporten som ska tas bort.</param>
         /// <returns>NoContent om borttagningen lyckades.</returns>
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTimelog(int id)
         {

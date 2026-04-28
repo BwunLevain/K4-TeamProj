@@ -1,4 +1,5 @@
-
+using ProxyAPI.Client;
+using ProxyAPI.Extensions;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddHttpClient<TimeLogClient>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:5001"); // behöver ändras
+});
+
+builder.Services.AddCustomCors();
 
 var app = builder.Build();
 
@@ -22,6 +30,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseCors("StrictPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
