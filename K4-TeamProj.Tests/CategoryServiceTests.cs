@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Caching.Hybrid;
+using Microsoft.Extensions.Logging;
 using Moq;
 using TimelogAPI.Features.Categories.Dtos;
 using TimelogAPI.Features.TimeLogs.Dtos;
@@ -14,8 +15,9 @@ namespace K4_TeamProj.Tests.UnitTests
 
         public CategoryServiceTests()
         {
-            _mockLogger = new Mock<ILogger<CategoryService>>();
-            _service = new CategoryService(_mockLogger.Object);
+            var logger = new Mock<ILogger<CategoryService>>();
+            var cache = new Mock<HybridCache>();
+            _service = new CategoryService(logger.Object, cache.Object);
         }
 
         [Fact]
