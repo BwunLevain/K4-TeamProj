@@ -3,12 +3,14 @@ using TimelogAPI.Features.Categories.Dtos;
 using TimelogAPI.Features.Common;
 using TimelogAPI.Extentions;
 using TimelogAPI.Extentions.Mappers;
+using Microsoft.Extensions.Caching.Hybrid;
 
 namespace TimelogAPI.Services
 {
     public class CategoryService : ICategoryService
     {
         private readonly ILogger<CategoryService> _logger;
+        private readonly HybridCache _cache;
 
         public static readonly List<Category> _categories = Enumerable.Range(1, 3).Select(i => new Category
         {
@@ -18,9 +20,10 @@ namespace TimelogAPI.Services
 
         private static int _nextId = 4;
 
-        public CategoryService(ILogger<CategoryService> logger)
+        public CategoryService(ILogger<CategoryService> logger, HybridCache cache)
         {
             _logger = logger;
+            _cache = cache;
         }
 
         public async Task<PagedResponseDto<CategoryResponse>> GetPagedCategoriesAsync(int page, int pageSize, string? searchTerm)
@@ -39,8 +42,14 @@ namespace TimelogAPI.Services
 
         public async Task<CategoryResponse> GetCategoryByIdAsync(int id)
         {
-            var category = _categories.FirstOrDefault(c => c.Id == id);
-            return category?.ToResponse()!;
+            return await _cache.GetOrCreateAsync(
+                $"category-{id}",
+                async _ =>
+                {
+                    var category = _categories.FirstOrDefault(c => c.Id == id);
+                    return category?.ToResponse()!;
+                }
+            );
         }
 
         public async Task<CategoryResponse> CreateCategoryAsync(CreateCategoryRequest request)
