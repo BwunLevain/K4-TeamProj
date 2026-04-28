@@ -10,6 +10,13 @@ using TimelogAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Host.UseDefaultServiceProvider(options =>
+{
+    options.ValidateOnBuild = true;
+    options.ValidateScopes = true;
+});
+
+
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<ValidateModelFilter>();
