@@ -27,9 +27,11 @@ namespace K4_TeamProj.Tests
         {
             var response = await _client.GetAsync("/api/proxy/timelogs");
 
-            response.EnsureSuccessStatusCode();
-
             var content = await response.Content.ReadAsStringAsync();
+
+            Console.WriteLine(content);
+
+            response.EnsureSuccessStatusCode();
 
             Assert.False(string.IsNullOrWhiteSpace(content));
         }
