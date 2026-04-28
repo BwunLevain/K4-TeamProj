@@ -14,6 +14,7 @@ namespace TimelogAPI.Controllers
     public class TimelogsController : ControllerBase
     {
         private readonly ITimelogService _timelogService;
+
         public TimelogsController(ITimelogService timelogService)
         {
             _timelogService = timelogService;

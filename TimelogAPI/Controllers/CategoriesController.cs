@@ -13,6 +13,7 @@ namespace TimelogAPI.Controllers
     public class CategoriesController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
+
         public CategoriesController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
@@ -57,9 +58,10 @@ namespace TimelogAPI.Controllers
         /// <returns>En lista med kategorier.</returns>
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetCategories([FromQuery] int page = 1,
-        [FromQuery] int pageSize = 20,
-        [FromQuery] string? searchTerm = null)
+        public async Task<IActionResult> GetCategories(
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 20,
+            [FromQuery] string? searchTerm = null)
         {
             var result = await _categoryService.GetPagedCategoriesAsync(page, pageSize, searchTerm);
             return Ok(result);
