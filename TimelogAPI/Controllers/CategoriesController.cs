@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TimelogAPI.Features.Categories.Dtos;
 using TimelogAPI.Services;
 
@@ -25,6 +26,7 @@ namespace TimelogAPI.Controllers
         /// <returns>Den nyskapade kategorin.</returns>
         /// <response code="201">Returnerar den nyskapade kategorin.</response>
         /// <response code="400">Om förfrågan är felaktig.</response>
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequest request)
         {
@@ -39,6 +41,7 @@ namespace TimelogAPI.Controllers
         /// <returns>En kategori.</returns>
         /// <response code="200">Returnerar den efterfrågade kategorin.</response>
         /// <response code="404">Om kategorin inte hittades.</response>
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCategoryById(int id)
         {
@@ -53,6 +56,7 @@ namespace TimelogAPI.Controllers
         /// <param name="pageSize">Antal resultat per sida (standardvärde 20).</param>
         /// <param name="searchTerm">Frivillig sökterm för att filtrera kategorier på namn.</param>
         /// <returns>En lista med kategorier.</returns>
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetCategories(
             [FromQuery] int page = 1,
@@ -71,6 +75,7 @@ namespace TimelogAPI.Controllers
         /// <returns>Inget innehåll vid lyckad uppdatering.</returns>
         /// <response code="204">Kategorin har uppdaterats.</response>
         /// <response code="404">Om kategorin inte existerar.</response>
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCategory(int id, [FromBody] UpdateCategoryRequest request)
         {
@@ -84,6 +89,8 @@ namespace TimelogAPI.Controllers
         /// <param name="id">ID för kategorin som ska raderas.</param>
         /// <returns>Inget innehåll vid lyckad borttagning.</returns>
         /// <response code="204">Kategorin har raderats.</response>
+        
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
