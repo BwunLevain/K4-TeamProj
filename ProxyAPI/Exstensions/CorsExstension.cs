@@ -9,7 +9,7 @@
                 options.AddPolicy("StrictPolicy", policy =>
                 {
                     policy
-                        .WithOrigins("https://localhost:3000") // behöver ändras senare
+                        .WithOrigins("https://localhost:3000") // change to match frontend port when frontend is available (default for react or next.js is usually 3000 though)
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
